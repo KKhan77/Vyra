@@ -1,0 +1,27 @@
+import { boolean, pgTable, text, timestamp, uuid, varchar } from 'drizzle-orm/pg-core';
+
+export const projectBriefs = pgTable('project_briefs', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  reference: varchar('reference', { length: 24 }).notNull().unique(),
+  kind: varchar('kind', { length: 24 }).notNull().default('project'),
+  name: varchar('name', { length: 160 }).notNull(),
+  company: varchar('company', { length: 200 }).notNull().default(''),
+  email: varchar('email', { length: 254 }).notNull(),
+  phone: varchar('phone', { length: 60 }),
+  website: varchar('website', { length: 500 }),
+  industry: varchar('industry', { length: 100 }),
+  projectType: varchar('project_type', { length: 100 }).notNull(),
+  objective: text('objective'),
+  deliverables: text('deliverables').array().notNull().default([]),
+  markets: varchar('markets', { length: 500 }),
+  languages: text('languages').array().notNull().default([]),
+  budget: varchar('budget', { length: 100 }),
+  timeline: varchar('timeline', { length: 100 }),
+  message: text('message'),
+  attachmentName: varchar('attachment_name', { length: 255 }),
+  attachmentType: varchar('attachment_type', { length: 100 }),
+  attachmentData: text('attachment_data'),
+  consent: boolean('consent').notNull(),
+  status: varchar('status', { length: 24 }).notNull().default('new'),
+  createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+});
